@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  node_api:
+    env_file:
+      - .env
+    build: .
+    command: npm run start:debug
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+      - "${APP_DEBUG_PORT}:${APP_DEBUG_PORT}"
+    networks:
+      - nesjs-network
+    volumes:
+      - .:/srv/app
+      - /node_modules
+    depends_on:
+      - mariadb_api
+    links:
+      - mariadb_api
+    restart: always
+
+  mariadb_api:
+    restart: always
+    image: mariadb:latest
+    env_file:
+      - .env
+    volumes:
+      - mariadb_volume_api:/var/lib/mysql
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    networks:
+      - nesjs-network
+
+volumes:
+  mariadb_volume_api:
+  node_modules:
+
+networks:
+  nesjs-network:
+  default:
+    external:
+      name: myapp
