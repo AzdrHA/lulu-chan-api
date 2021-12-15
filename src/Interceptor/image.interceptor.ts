@@ -7,17 +7,16 @@ import * as fs from 'fs';
 export const imageInterceptor: MulterOptions = {
   storage: diskStorage({
     destination: (req, file, cb) => {
-      /*const distOne = Math.random().toString(36).substr(2, 2);
+      const distOne = Math.random().toString(36).substr(2, 2);
       const distTwo = Math.random().toString(36).substr(2, 2);
 
       if (!fs.existsSync(`./public/${distOne}`))
         fs.mkdirSync(`./public/${distOne}`);
 
       if (!fs.existsSync(`./public/${distOne}/${distTwo}`))
-        fs.mkdirSync(`./public/${distOne}/${distTwo}`);*/
+        fs.mkdirSync(`./public/${distOne}/${distTwo}`);
 
-      cb(null, `./public/`);
-      // cb(null, `./public/${distOne}/${distTwo}`);
+      cb(null, `./public/${distOne}/${distTwo}`);
     },
     filename: (req, file, callback) => {
       callback(null, `${nanoid()}${extname(file.originalname)}`);
