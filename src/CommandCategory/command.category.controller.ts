@@ -1,36 +1,33 @@
-import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CommandCategoryEntity } from './command.category.entity';
-import { Response } from 'express';
-import { CommandCategoryRepository } from './command.category.repository';
+import { Request } from 'express';
+import { CommandCategoryService } from './command.category.service';
 
 @Controller('command/category')
 export class CommandCategoryController {
-  private commandCategoryRepository: CommandCategoryRepository;
-  constructor(commandCategoryRepository: CommandCategoryRepository) {
-    this.commandCategoryRepository = commandCategoryRepository;
+  private commandCategoryService: CommandCategoryService;
+  constructor(commandCategoryService: CommandCategoryService) {
+    this.commandCategoryService = commandCategoryService;
   }
 
   @Post('/')
   public async createCategory(
-    @Res() res: Response,
+    @Req() request: Request,
     @Body() data: CommandCategoryEntity,
   ) {
-    const category = this.commandCategoryRepository.create(data);
+    return this.commandCategoryService.createCategory(request, data);
+  }
 
-    try {
-      await this.commandCategoryRepository.save(category);
-      return res.status(HttpStatus.CREATED).json({
-        message: `Category ${category.name} successfully created`,
-      });
-    } catch (e) {
-      switch (e.code) {
-        case 'ER_DUP_ENTRY':
-          return res.status(HttpStatus.CONFLICT).json({
-            error: `Category ${category.name} already existed`,
-          });
-        default:
-          res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(e);
-      }
-    }
+  @Get('/')
+  public async getList() {
+    return this.commandCategoryService.getList();
+  }
+
+  @Get('/:id/commands')
+  public async getCommandListByCategory(
+    @Param('id') id: number,
+    @Req() request: Request,
+  ) {
+    return this.commandCategoryService.getCommandListByCategory(request, id);
   }
 }
