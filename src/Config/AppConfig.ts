@@ -1,7 +1,6 @@
-import { join } from 'path';
 import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
 
-type AppOption = {
+export type AppOption = {
   app: {
     port: number;
     routePrefix: string;
@@ -27,12 +26,5 @@ export const app_config = {
     logging: true,
     synchronize: true,
     entityPrefix: process.env.DB_TABLE_PREFIX,
-    migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
-    migrationsDir: './migrations',
-    cli: {
-      migrationsDir: './migrations',
-    },
-    migrationsTableName: 'migrations_typeorm',
-    migrationsRun: true,
   },
 } as AppOption;
