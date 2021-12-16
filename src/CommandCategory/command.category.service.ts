@@ -52,7 +52,7 @@ export class CommandCategoryService {
   }
 
   /**
-   * Get Command list by Category
+   * Get Command list of Category
    * @param {Request} request
    * @param {number} id
    * @return {Response}
@@ -61,11 +61,11 @@ export class CommandCategoryService {
     const category = await this.commandCategoryRepository.findOne(id);
 
     if (!category)
-      return request.res.status(HttpStatus.NOT_FOUND).json({
+      request.res.status(HttpStatus.NOT_FOUND).json({
         error: `Category not found`,
       });
 
-    return request.res
+    request.res
       .status(HttpStatus.OK)
       .json(await this.commandRepository.getListByCategory(category));
   }

@@ -24,9 +24,9 @@ export class CommandCategoryController {
   }
 
   @Get('/:id/commands')
-  public async getCommandListByCategory(
-    @Param('id') id: number,
+  public getCommandListByCategory(
     @Req() request: Request,
+    @Param('id') id: number,
   ) {
     return this.commandCategoryService.getCommandListByCategory(request, id);
   }
