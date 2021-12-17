@@ -69,4 +69,11 @@ export class CommandCategoryService {
       .status(HttpStatus.OK)
       .json(await this.commandRepository.getListByCategory(category));
   }
+
+  public async getCategoryCommandList() {
+    return this.commandCategoryRepository
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.commands', 'commands')
+      .getMany();
+  }
 }

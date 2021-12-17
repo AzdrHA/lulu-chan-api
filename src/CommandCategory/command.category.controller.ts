@@ -23,6 +23,11 @@ export class CommandCategoryController {
     return this.commandCategoryService.getList();
   }
 
+  @Get('/commands')
+  public async getCategoryCommandList() {
+    return this.commandCategoryService.getCategoryCommandList();
+  }
+
   @Get('/:id/commands')
   public getCommandListByCategory(
     @Req() request: Request,

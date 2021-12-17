@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { CommandEntity } from './command.entity';
 import { CommandService } from './command.service';
@@ -12,9 +12,8 @@ export class CommandController {
 
   @Post('/')
   public async createCommand(
-    @Res() res: Response,
-    @Body() data: CommandEntity,
     @Req() request: Request,
+    @Body() data: CommandEntity,
   ) {
     return this.commandService.createCommand(request, data);
   }
