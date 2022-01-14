@@ -14,13 +14,13 @@ export class GuildSettingEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column()
+  @Column({ default: 'l!' })
   public prefix: string;
 
-  @Column()
+  @Column({ default: '#67acbb' })
   public color: string;
 
-  @Column()
+  @Column({ default: 'en' })
   public language: string;
 
   @OneToOne(() => GuildEntity, (guild) => guild.setting)
