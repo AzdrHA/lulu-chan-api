@@ -3,10 +3,11 @@ import {
   Controller,
   Post,
   Req,
+  Res,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { imageInterceptor } from 'src/Interceptor/image.interceptor';
 import { Image } from '../Types/Image';
@@ -25,9 +26,10 @@ export class ImageController {
   @UseInterceptors(FilesInterceptor('images', null, imageInterceptor))
   public async uploadFile(
     @Req() request: Request,
+    @Res() response: Response,
     @UploadedFiles() images: Image[],
     @Body() data: any,
   ) {
-    return this.imageService.uploadFile(request, images);
+    return this.imageService.uploadFile(request, response, images);
   }
 }

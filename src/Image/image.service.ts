@@ -4,7 +4,7 @@ import { ImageRepository } from './image.repository';
 import { CommandRepository } from '../Command/command.repository';
 import { ImageEntity } from './image.entity';
 import { parse } from 'path';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { Image } from '../Types/Image';
 
 @Injectable()
@@ -26,17 +26,22 @@ export class ImageService {
   /**
    * Upload file
    * @param {Request} request
+   * @param response
    * @param  {Image[]} images
    * @return {Response}
    */
-  public async uploadFile(request: Request, images: Image[]) {
+  public async uploadFile(
+    request: Request,
+    response: Response,
+    images: Image[],
+  ) {
     console.log(request.body);
     const result = [];
     const error = [];
     const command = await this.commandRepository.findOne(request.body.command);
 
     if (!command)
-      request.res.status(HttpStatus.NOT_FOUND).json({
+      return response.status(HttpStatus.NOT_FOUND).json({
         error: `Command not found`,
       });
 
@@ -75,7 +80,7 @@ export class ImageService {
       }
     }
 
-    request.res.status(HttpStatus.CREATED).json({
+    return response.status(HttpStatus.CREATED).json({
       result,
       error,
       message: `${result.length - error.length} images saved on ${
