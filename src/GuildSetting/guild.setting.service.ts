@@ -1,22 +1,37 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { GuildSettingRepository } from './guild.setting.repository';
 import { Request } from 'express';
-import { GuildSettingEntity } from './guild.setting.entity';
+import { GuildRepository } from '../Guild/guild.repository';
+import { GuildService } from '../Guild/guild.service';
 
 @Injectable()
 export class GuildSettingService {
   private guildSettingRepository: GuildSettingRepository;
+  private guildRepository: GuildRepository;
 
-  constructor(guildSettingRepository: GuildSettingRepository) {
+  private guildService: GuildService;
+
+  constructor(
+    guildSettingRepository: GuildSettingRepository,
+    guildRepository: GuildRepository,
+    guildService: GuildService,
+  ) {
     this.guildSettingRepository = guildSettingRepository;
+    this.guildRepository = guildRepository;
+    this.guildService = guildService;
   }
 
-  public async getOrCreateSetting(request: Request, guildId: number) {
-    let setting: GuildSettingEntity = await this.guildSettingRepository.findOne(
-      { id: guildId },
-    );
-    if (!setting) setting = await this.guildSettingRepository.create().save();
+  public async getOrCreateSetting(request: Request, guildId: string) {
+    const guild = await this.guildService.getOrCreateGuild(guildId);
 
-    request.res.status(HttpStatus.OK).json(setting);
+    if (!guild.setting) {
+      const setting = this.guildSettingRepository.create();
+      await this.guildSettingRepository.save(setting);
+
+      guild.setting = setting;
+      await this.guildRepository.save(guild);
+    }
+
+    request.res.status(HttpStatus.OK).json(guild);
   }
 }

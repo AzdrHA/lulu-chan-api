@@ -12,7 +12,7 @@ export class GuildSettingController {
   @Post('/:guildId')
   public getOrCreateSetting(
     @Req() request: Request,
-    @Param('guildId') guildId: number,
+    @Param('guildId') guildId: string,
   ) {
     return this.guildSettingService.getOrCreateSetting(request, guildId);
   }
