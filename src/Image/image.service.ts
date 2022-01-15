@@ -42,11 +42,14 @@ export class ImageService {
 
     for (const file of files) {
       try {
-        const format = await this.imageFormatRepository.findOne({
+        let format = await this.imageFormatRepository.findOne({
           mimetype: file.mimetype,
         });
 
-        if (!format) continue;
+        if (!format)
+          format = await this.imageFormatRepository
+            .create({ mimetype: file.mimetype })
+            .save();
 
         const path = file.path.replace('public/', '');
 
