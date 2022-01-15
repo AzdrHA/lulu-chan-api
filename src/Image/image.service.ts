@@ -26,10 +26,10 @@ export class ImageService {
   /**
    * Upload file
    * @param {Request} request
-   * @param  {Image[]} files
+   * @param  {Image[]} images
    * @return {Response}
    */
-  public async uploadFile(request: Request, files: Image[]) {
+  public async uploadFile(request: Request, images: Image[]) {
     console.log(request.body);
     const result = [];
     const error = [];
@@ -40,7 +40,7 @@ export class ImageService {
         error: `Command not found`,
       });
 
-    for (const file of files) {
+    for (const file of images) {
       try {
         let format = await this.imageFormatRepository.findOne({
           mimetype: file.mimetype,
@@ -61,13 +61,13 @@ export class ImageService {
 
         await this.imageRepository.save(image);
         result.push({
-          index: files.indexOf(file),
+          index: images.indexOf(file),
           item: file,
           type: 'success',
         });
       } catch (e) {
         error.push({
-          item: files.indexOf(file),
+          item: images.indexOf(file),
           index: file,
           type: 'error',
           error: e,
