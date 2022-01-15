@@ -2,7 +2,9 @@ import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CommandCategoryEntity } from './command.category.entity';
 import { Request } from 'express';
 import { CommandCategoryService } from './command.category.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Command')
 @Controller('command/category')
 export class CommandCategoryController {
   private commandCategoryService: CommandCategoryService;

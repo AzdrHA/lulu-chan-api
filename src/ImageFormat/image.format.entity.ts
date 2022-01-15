@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { ImageEntity } from '../Image/image.entity';
 import { IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Unique(['mimetype'])
 @Entity('image_format')
@@ -17,6 +18,9 @@ export class ImageFormatEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
+  @ApiProperty({
+    required: true,
+  })
   @IsString()
   @Column()
   public mimetype: string;

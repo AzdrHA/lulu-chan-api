@@ -1,7 +1,9 @@
 import { Controller, Param, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { GuildSettingService } from './guild.setting.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Guild')
 @Controller('guild/setting')
 export class GuildSettingController {
   private guildSettingService: GuildSettingService;
