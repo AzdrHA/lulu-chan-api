@@ -36,7 +36,7 @@ export class ImageService {
     const command = await this.commandRepository.findOne(request.body.command);
 
     if (!command)
-      return request.res.status(HttpStatus.NOT_FOUND).json({
+      request.res.status(HttpStatus.NOT_FOUND).json({
         error: `Command not found`,
       });
 
@@ -75,7 +75,7 @@ export class ImageService {
       }
     }
 
-    return request.res.status(HttpStatus.CREATED).json({
+    request.res.status(HttpStatus.CREATED).json({
       result,
       error,
       message: `${result.length - error.length} images saved on ${
