@@ -6,6 +6,7 @@ import { ImageEntity } from './image.entity';
 import { parse } from 'path';
 import { Request, Response } from 'express';
 import { Image } from '../Types/Image';
+import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class ImageService {
@@ -87,5 +88,15 @@ export class ImageService {
         result.length
       }`,
     });
+  }
+
+  public async getImageByCommandName(request: Request, command: string) {
+    const image = await this.imageRepository.getOneImageByCommandName(command);
+    if (!image)
+      request.res
+        .status(HttpStatus.NOT_FOUND)
+        .json(new HttpErrorByCode['404']());
+
+    request.res.json({ url: `https://cdn.lulu-chan.fun/${image.path}` });
   }
 }

@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   Req,
   Res,
@@ -31,5 +33,13 @@ export class ImageController {
     @Body() data: any,
   ) {
     return this.imageService.uploadFile(request, response, images);
+  }
+
+  @Get('/:command')
+  public async getImageByCommandName(
+    @Req() request: Request,
+    @Param('command') command: string,
+  ) {
+    return this.imageService.getImageByCommandName(request, command);
   }
 }
