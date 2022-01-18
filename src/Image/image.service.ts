@@ -97,6 +97,11 @@ export class ImageService {
         .status(HttpStatus.NOT_FOUND)
         .json(new HttpErrorByCode['404']());
 
-    request.res.json({ url: `https://cdn.lulu-chan.fun/${image.path}` });
+    const result = {
+      name: image.name,
+      url: `https://cdn.lulu-chan.fun/${image.path}`,
+    };
+
+    request.res.json(result);
   }
 }
