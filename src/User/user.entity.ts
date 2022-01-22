@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { GuildWarnEntity } from '../GuildWarn/guild.warn.entity';
 import { UserBlacklistEntity } from '../UserBlacklist/user.blacklist.entity';
+import { TokenEntity } from '../Token/token.entity';
 
 @Entity('user')
 @Unique(['userId'])
@@ -19,6 +20,8 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   public userId: string;
+
+  public token: TokenEntity;
 
   @OneToMany(() => UserBlacklistEntity, (blacklist) => blacklist.user)
   public userBlacklists: UserBlacklistEntity[];

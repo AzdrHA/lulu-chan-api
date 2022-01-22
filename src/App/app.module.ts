@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { app_config } from '../Config/AppConfig';
 import { ImageModule } from '../Image/image.module';
@@ -7,6 +7,7 @@ import { CommandCategoryModule } from '../CommandCategory/command.category.modul
 import { CommandModule } from '../Command/command.module';
 import { GuildModule } from '../Guild/guild.module';
 import { GuildSettingModule } from '../GuildSetting/guild.setting.module';
+import { TokenMiddleware } from '../Token/token.middleware';
 
 @Module({
   imports: [
@@ -19,4 +20,8 @@ import { GuildSettingModule } from '../GuildSetting/guild.setting.module';
     GuildSettingModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): any {
+    consumer.apply(TokenMiddleware).forRoutes('*');
+  }
+}
