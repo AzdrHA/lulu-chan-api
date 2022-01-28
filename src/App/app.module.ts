@@ -8,6 +8,8 @@ import { CommandModule } from '../Command/command.module';
 import { GuildModule } from '../Guild/guild.module';
 import { GuildSettingModule } from '../GuildSetting/guild.setting.module';
 import { TokenMiddleware } from '../Token/token.middleware';
+import { TokenModule } from '../Token/token.module';
+import { UserModule } from '../User/user.module';
 
 @Module({
   imports: [
@@ -18,10 +20,12 @@ import { TokenMiddleware } from '../Token/token.middleware';
     CommandCategoryModule,
     GuildModule,
     GuildSettingModule,
+    TokenModule,
+    UserModule,
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
-    consumer.apply(TokenMiddleware).forRoutes('*');
+    // consumer.apply(TokenMiddleware).forRoutes('*');
   }
 }

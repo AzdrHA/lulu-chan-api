@@ -4,7 +4,8 @@ import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 export class TokenMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): any {
-    const bearerToken = (req.header('authorization') ?? '').split(' ')[1];
+    console.log(req);
+    /* const bearerToken = (req.header('authorization') ?? '').split(' ')[1];
 
     if (!bearerToken)
       return res
@@ -12,7 +13,7 @@ export class TokenMiddleware implements NestMiddleware {
         .json(new HttpErrorByCode[HttpStatus.UNAUTHORIZED]());
 
     console.log(bearerToken);
-    console.log('Request...');
+    console.log('Request...'); */
     next();
   }
 }
