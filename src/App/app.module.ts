@@ -26,6 +26,6 @@ import { UserModule } from '../User/user.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
-    // consumer.apply(TokenMiddleware).forRoutes('*');
+    consumer.apply(TokenMiddleware).forRoutes('*');
   }
 }

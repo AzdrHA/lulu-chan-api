@@ -10,3 +10,6 @@ public/**/*
 
 logs/**/*
 !logs/**/*.gitkeep
+
+dump_db/**/*
+!dump_db/**/*.gitkeep

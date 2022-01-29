@@ -93,13 +93,11 @@ export class ImageService {
   public async getImageByCommandName(request: Request, command: string) {
     const image = await this.imageRepository.getOneImageByCommandName(command);
     if (!image)
-      request.res
-        .status(HttpStatus.NOT_FOUND)
-        .json(new HttpErrorByCode['404']());
+      request.res.status(HttpStatus.OK).json(new HttpErrorByCode['404']());
 
     const result = {
       name: image.name,
-      url: `https://cdn.lulu-chan.fun/${image.path}`,
+      url: `http://cdn.lulu-chan.fun/${image.path}`,
     };
 
     request.res.json(result);
