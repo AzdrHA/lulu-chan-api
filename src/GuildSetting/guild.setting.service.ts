@@ -3,6 +3,7 @@ import { GuildSettingRepository } from './guild.setting.repository';
 import { Request } from 'express';
 import { GuildRepository } from '../Guild/guild.repository';
 import { GuildService } from '../Guild/guild.service';
+import { GuildSettingEntity } from './guild.setting.entity';
 
 @Injectable()
 export class GuildSettingService {
@@ -33,5 +34,18 @@ export class GuildSettingService {
     }
 
     request.res.status(HttpStatus.OK).json(guild);
+  }
+
+  public async updateSetting(
+    request: Request,
+    guildId: string,
+    newSetting: GuildSettingEntity,
+  ) {
+    const setting = await this.guildSettingRepository.getSettingByGuild(
+      guildId,
+    );
+
+    await this.guildSettingRepository.update(setting.id, newSetting);
+    request.res.json(newSetting);
   }
 }
