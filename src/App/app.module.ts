@@ -10,6 +10,7 @@ import { GuildSettingModule } from '../GuildSetting/guild.setting.module';
 import { TokenMiddleware } from '../Token/token.middleware';
 import { TokenModule } from '../Token/token.module';
 import { UserModule } from '../User/user.module';
+import { ClientModule } from '../Client/client.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { UserModule } from '../User/user.module';
     GuildSettingModule,
     TokenModule,
     UserModule,
+    ClientModule,
   ],
 })
 export class AppModule implements NestModule {
