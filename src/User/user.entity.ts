@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { GuildWarnEntity } from '../GuildWarn/guild.warn.entity';
 import { UserBlacklistEntity } from '../UserBlacklist/user.blacklist.entity';
+import { UserRole } from '../Types/UserRole';
 import { TokenEntity } from '../Token/token.entity';
 
 @Entity('user')
@@ -34,6 +35,13 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => GuildWarnEntity, (warn) => warn.moderator)
   public moderatorGuildWarns: GuildWarnEntity[];
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  public role: string;
 
   @CreateDateColumn()
   public createdAt: Date;

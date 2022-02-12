@@ -11,6 +11,7 @@ import { TokenMiddleware } from '../Token/token.middleware';
 import { TokenModule } from '../Token/token.module';
 import { UserModule } from '../User/user.module';
 import { ClientModule } from '../Client/client.module';
+import { UserBlacklistModule } from '../UserBlacklist/user.blacklist.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ClientModule } from '../Client/client.module';
     GuildModule,
     GuildSettingModule,
     TokenModule,
+    UserBlacklistModule,
     UserModule,
     ClientModule,
   ],
