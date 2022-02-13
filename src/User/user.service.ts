@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { UserRepository } from './user.repository';
+import { UserRole } from '../Types/UserRole';
 
 @Injectable()
 export class UserService {
@@ -19,5 +20,13 @@ export class UserService {
     });
     await this.userRepository.save(user);
     request.res.json(user);
+  }
+
+  public getAllOwners() {
+    return this.userRepository
+      .createQueryBuilder('u')
+      .andWhere('u.role = :role')
+      .setParameter('role', UserRole.OWNER)
+      .getMany();
   }
 }
