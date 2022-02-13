@@ -84,7 +84,7 @@ export class UserBlacklistService {
     blacklist.reason = data.reason;
     await this.userBlacklistRepository.save(blacklist);
 
-    return response.send('The user has been added at the blacklist!');
+    return response.json(blacklist);
   };
 
   /**
