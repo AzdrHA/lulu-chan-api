@@ -8,9 +8,11 @@ const configService = new ConfigService();
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('/api');
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-    whitelist: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+    }),
+  );
   await app.listen(configService.get('APP_PORT'));
 })();

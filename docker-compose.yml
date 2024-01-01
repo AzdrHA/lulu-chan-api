@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: ./docker/bun
+      context: ./docker/node
     ports:
       - "${APP_PORT}:${APP_PORT}"
     depends_on:
@@ -9,7 +9,7 @@ services:
     volumes:
       - ./app:/srv/app:rw,cached
       - ./public:/srv/app/public:rw,cached
-    command: [ "bun", "run", "start" ]
+    command: [ "npm", "run", "start" ]
     env_file:
       - .env
 
@@ -17,16 +17,16 @@ services:
     build:
       context: ./docker/mariadb
     ports:
-      - "${DB_PORT}:3306"
+      - "${MYSQL_PORT}:3306"
     volumes:
       - ./mysql:/var/lib/mysql
     env_file:
       - .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   nginx:
     build:

@@ -8,7 +8,7 @@ export class MysqlAdapter implements IDatabaseAdapter {
       provide: 'DATA_SOURCE',
       useFactory: async () => {
         return TypeormConfig.initialize();
-      }
-    }
+      },
+    };
   }
 }
