@@ -2,17 +2,17 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { IsInt, IsString } from 'class-validator';
-import { CommandCategoryModel } from './command.category.model';
+import { CommandModel } from './command.model';
 
-@Entity('command')
+@Entity('command_category')
 @Unique(['name'])
-export class CommandModel {
+export class CommandCategoryModel {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -20,13 +20,16 @@ export class CommandModel {
   @IsString({ message: 'Name must be a string', groups: ['create', 'update'] })
   public name: string;
 
+  @Column({ default: false, type: 'boolean' })
+  @IsInt({ message: 'Category must be a string', groups: ['create', 'update'] })
+  public nsfw: boolean;
+
   @CreateDateColumn()
   public createdAt: Date;
 
   @UpdateDateColumn()
   public updatedAt: Date;
 
-  @ManyToOne(() => CommandCategoryModel, (category) => category.commands)
-  @IsInt({ message: 'Category must be a int', groups: ['create', 'update'] })
-  public category: CommandCategoryModel;
+  @OneToMany(() => CommandModel, (command) => command.category)
+  public commands: CommandModel[];
 }

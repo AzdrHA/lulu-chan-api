@@ -1,7 +1,6 @@
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
-import { PROJECT_DIR } from './constant.config';
 
 const configService = new ConfigService();
 const config: MysqlConnectionOptions = {
@@ -13,7 +12,7 @@ const config: MysqlConnectionOptions = {
   password: configService.get('MYSQL_PASSWORD'),
   database: configService.get('MYSQL_DATABASE'),
   entities: ['dist/model/**/*{.js,.ts}'],
-  migrations: [PROJECT_DIR + '/migrations/*.ts'],
+  migrations: ['dist/migrations/*{.js,.ts}'],
 };
 
 export default new DataSource(config);
