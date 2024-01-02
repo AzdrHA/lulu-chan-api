@@ -31,9 +31,8 @@ export default class CommandService {
     const command = await this.commandRepository.findCommandById(id);
     if (id && !command) throw new ApiException('Command not found');
 
-    const existingCommand = await this.commandRepository.findCommandByName(
-      data.name,
-    );
+    const existingCommand =
+      await this.commandRepository.findCommandByNameAndIdNot(data.name, id);
     if (existingCommand) throw new ApiException('Command name already exists');
 
     if (data.category) {

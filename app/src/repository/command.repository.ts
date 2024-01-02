@@ -20,4 +20,14 @@ export class CommandRepository extends AbstractRepository<CommandModel> {
       .setParameter('id', id)
       .getOne();
   };
+
+  public findCommandByNameAndIdNot = (name: string, id: number | null = 0) => {
+    return this.repository
+      .createQueryBuilder('command')
+      .where('command.name = :name')
+      .andWhere('command.id != :id')
+      .setParameter('name', name)
+      .setParameter('id', id)
+      .getOne();
+  };
 }

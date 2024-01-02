@@ -7,7 +7,7 @@ import {
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
-import { IsInt, IsString } from 'class-validator';
+import { IsOptional, IsString, IsBoolean } from 'class-validator';
 import { CommandModel } from './command.model';
 
 @Entity('command_category')
@@ -21,8 +21,12 @@ export class CommandCategoryModel {
   public name: string;
 
   @Column({ default: false, type: 'boolean' })
-  @IsInt({ message: 'Category must be a string', groups: ['create', 'update'] })
-  public nsfw: boolean;
+  @IsOptional({ groups: ['create', 'update'] })
+  @IsBoolean({
+    message: 'NSFW must be a boolean',
+    groups: ['create', 'update'],
+  })
+  public nsfw = false;
 
   @CreateDateColumn()
   public createdAt: Date;

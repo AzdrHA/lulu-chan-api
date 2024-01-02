@@ -14,9 +14,13 @@ import AbstractController from '../abstract/AbstractController';
 import CommandService from '../service/command.service';
 import { Response } from 'express';
 import { CommandModel } from '../model/command.model';
+import { ICRUDController } from '../interface/ICRUDController';
 
 @Controller('/command')
-export class CommandController extends AbstractController {
+export class CommandController
+  extends AbstractController
+  implements ICRUDController<CommandModel>
+{
   constructor(private readonly commandService: CommandService) {
     super();
   }
@@ -41,7 +45,7 @@ export class CommandController extends AbstractController {
   }
 
   @Patch('/:id')
-  @UsePipes(new ValidationPipe({ groups: ['create'] }))
+  @UsePipes(new ValidationPipe({ groups: ['update'] }))
   public update(
     @Res() response: Response,
     @Param('id') id: number,

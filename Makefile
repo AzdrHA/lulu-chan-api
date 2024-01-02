@@ -9,8 +9,10 @@ restart: stop start
 enter:
 	@docker compose exec app sh
 
-migration:
+migration-generate:
 	@docker compose exec app bun run migration:generate
+
+migration-run:
 	@docker compose exec app bun run migration:run
 
 lint:

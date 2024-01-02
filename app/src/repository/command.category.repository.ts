@@ -21,4 +21,14 @@ export class CommandCategoryRepository extends AbstractRepository<CommandCategor
       .setParameter('name', name)
       .getOne();
   };
+
+  public findCategoryByNameAndIdNot = (name: string, id: number | null = 0) => {
+    return this.repository
+      .createQueryBuilder('category')
+      .where('category.name = :name')
+      .andWhere('category.id != :id')
+      .setParameter('name', name)
+      .setParameter('id', id)
+      .getOne();
+  };
 }
