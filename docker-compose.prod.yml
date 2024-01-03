@@ -1,0 +1,9 @@
+services:
+  app:
+    image: azdracito/lulu-chan-api
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:
+      - db
+    env_file:
+      - .env
