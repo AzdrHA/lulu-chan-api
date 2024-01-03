@@ -7,3 +7,29 @@ services:
       - db
     env_file:
       - .env
+
+  db:
+    build:
+      context: ./docker/mariadb
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./public:/public:r,cached
+    depends_on:
+      - app
