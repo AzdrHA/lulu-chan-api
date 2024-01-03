@@ -9,13 +9,14 @@ import {
   Param,
   Patch,
   Post,
-  Res, UseGuards,
+  Res,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import CommandCategoryService from '../service/command.category.service';
-import {AuthGuard} from "../guard/auth.guard";
+import { AuthGuard } from '../guard/auth.guard';
 
 @Controller('/command/category')
 @UseGuards(AuthGuard)

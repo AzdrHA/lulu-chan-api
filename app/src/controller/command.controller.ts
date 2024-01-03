@@ -6,7 +6,8 @@ import {
   Param,
   Patch,
   Post,
-  Res, UseGuards,
+  Res,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,7 +16,7 @@ import CommandService from '../service/command.service';
 import { Response } from 'express';
 import { CommandModel } from '../model/command.model';
 import { ICRUDController } from '../interface/ICRUDController';
-import {AuthGuard} from "../guard/auth.guard";
+import { AuthGuard } from '../guard/auth.guard';
 
 @Controller('/command')
 @UseGuards(AuthGuard)

@@ -4,7 +4,7 @@ import ApiException from '../exception/api.exception';
 import { CommandCategoryRepository } from '../repository/command.category.repository';
 import { CommandModel } from '../model/command.model';
 import { ImageRepository } from '../repository/image.repository';
-import * as process from "process";
+import * as process from 'process';
 
 @Injectable()
 export default class CommandService {
@@ -27,7 +27,7 @@ export default class CommandService {
   public async read(id: number): Promise<unknown> {
     const command = await this.commandRepository.findCommandById(id);
     if (!command) throw new ApiException('Command not found');
-    return command
+    return command;
   }
 
   public update(id: number, data: CommandModel): Promise<unknown> {
@@ -45,8 +45,8 @@ export default class CommandService {
   };
 
   public getAllCommands = async () => {
-    return  this.commandRepository.getAllCommands();
-  }
+    return this.commandRepository.getAllCommands();
+  };
 
   public async createOrUpdate(data: CommandModel, id?: number) {
     const command = await this.commandRepository.findCommandById(id);

@@ -33,8 +33,6 @@ export class CommandRepository extends AbstractRepository<CommandModel> {
   };
 
   public getAllCommands = () => {
-    return this.repository
-      .createQueryBuilder('command')
-      .getMany();
+    return this.repository.createQueryBuilder('command').getMany();
   };
 }

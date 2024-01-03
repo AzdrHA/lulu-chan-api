@@ -3,7 +3,8 @@ import {
   Param,
   Post,
   Res,
-  UploadedFiles, UseGuards,
+  UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -11,7 +12,7 @@ import AbstractController from '../abstract/AbstractController';
 import ImageService from '../service/image.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import multerConfig from '../config/multer.config';
-import {AuthGuard} from "../guard/auth.guard";
+import { AuthGuard } from '../guard/auth.guard';
 
 @Controller('/image/:category/:name')
 @UseGuards(AuthGuard)
@@ -21,8 +22,7 @@ export default class ImageController extends AbstractController {
   }
 
   @Post()
-  // @UseInterceptors(FilesInterceptor('files'))
-  @UseInterceptors(FilesInterceptor('files', 5, multerConfig))
+  @UseInterceptors(FilesInterceptor('files', null, multerConfig))
   public uploadImage(
     @UploadedFiles() files: Express.Multer.File[],
     @Res() response: Response,
