@@ -13,13 +13,16 @@ export default class CommandCategoryService {
     return this.commandCategoryRepository.save(data);
   }
 
-  public delete(id: number): Promise<unknown> {
+  public async delete(id: number): Promise<unknown> {
+    const category = await this.commandCategoryRepository.findCategoryById(id);
+    if (!category) throw new ApiException('Category not found');
     return this.commandCategoryRepository.delete(id);
   }
 
-  public read(id: number): Promise<unknown> {
-    console.log(id);
-    return this.commandCategoryRepository.findCategoryById(id);
+  public async read(id: number): Promise<unknown> {
+    const category = await this.commandCategoryRepository.findCategoryById(id);
+    if (!category) throw new ApiException('Category not found');
+    return category;
   }
 
   public update(id: number, data: CommandCategoryModel): Promise<unknown> {

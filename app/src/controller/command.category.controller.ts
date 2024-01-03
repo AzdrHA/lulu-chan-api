@@ -9,14 +9,16 @@ import {
   Param,
   Patch,
   Post,
-  Res,
+  Res, UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import CommandCategoryService from '../service/command.category.service';
+import {AuthGuard} from "../guard/auth.guard";
 
 @Controller('/command/category')
+@UseGuards(AuthGuard)
 export class CommandCategoryController
   extends AbstractController
   implements ICRUDController<CommandCategoryModel>

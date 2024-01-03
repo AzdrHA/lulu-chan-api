@@ -18,12 +18,16 @@ export default class CommandService {
     return this.commandRepository.save(data);
   }
 
-  public delete(id: number): Promise<unknown> {
+  public async delete(id: number): Promise<unknown> {
+    const command = await this.commandRepository.findCommandById(id);
+    if (!command) throw new ApiException('Command not found');
     return this.commandRepository.delete(id);
   }
 
-  public read(id: number): Promise<unknown> {
-    return this.commandRepository.findCommandById(id);
+  public async read(id: number): Promise<unknown> {
+    const command = await this.commandRepository.findCommandById(id);
+    if (!command) throw new ApiException('Command not found');
+    return command
   }
 
   public update(id: number, data: CommandModel): Promise<unknown> {
@@ -32,13 +36,17 @@ export default class CommandService {
 
   public getOneCommandImageByName = async (name: string) => {
     const image = await this.imageRepository.getOneImageByCommandName(name);
-    if (!image) throw new ApiException('Image not found');
+    if (!image) throw new ApiException('Image not found', 404);
 
     return {
       image: process.env.CDN_URL + image.path,
       name: image.name,
     };
   };
+
+  public getAllCommands = async () => {
+    return  this.commandRepository.getAllCommands();
+  }
 
   public async createOrUpdate(data: CommandModel, id?: number) {
     const command = await this.commandRepository.findCommandById(id);

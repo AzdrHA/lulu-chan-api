@@ -3,7 +3,7 @@ import {
   Param,
   Post,
   Res,
-  UploadedFiles,
+  UploadedFiles, UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -11,8 +11,10 @@ import AbstractController from '../abstract/AbstractController';
 import ImageService from '../service/image.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import multerConfig from '../config/multer.config';
+import {AuthGuard} from "../guard/auth.guard";
 
 @Controller('/image/:category/:name')
+@UseGuards(AuthGuard)
 export default class ImageController extends AbstractController {
   constructor(private readonly imageService: ImageService) {
     super();

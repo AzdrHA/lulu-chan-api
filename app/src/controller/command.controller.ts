@@ -6,7 +6,7 @@ import {
   Param,
   Patch,
   Post,
-  Res,
+  Res, UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,8 +15,10 @@ import CommandService from '../service/command.service';
 import { Response } from 'express';
 import { CommandModel } from '../model/command.model';
 import { ICRUDController } from '../interface/ICRUDController';
+import {AuthGuard} from "../guard/auth.guard";
 
 @Controller('/command')
+@UseGuards(AuthGuard)
 export class CommandController
   extends AbstractController
   implements ICRUDController<CommandModel>
@@ -76,6 +78,14 @@ export class CommandController
       service: this.commandService,
       fn: 'getOneCommandImageByName',
       args: [name],
+    });
+  }
+
+  @Get()
+  public getAllCommands(@Res() response: Response) {
+    return this.handleRequest(response, {
+      service: this.commandService,
+      fn: 'getAllCommands',
     });
   }
 }

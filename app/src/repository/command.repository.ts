@@ -31,4 +31,10 @@ export class CommandRepository extends AbstractRepository<CommandModel> {
       .setParameter('id', id)
       .getOne();
   };
+
+  public getAllCommands = () => {
+    return this.repository
+      .createQueryBuilder('command')
+      .getMany();
+  };
 }
