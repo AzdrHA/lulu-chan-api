@@ -1,15 +1,15 @@
 services:
   app:
     build:
-      context: ./docker/bun
+      context: .
+    command: npm run start
     ports:
       - "${APP_PORT}:${APP_PORT}"
     depends_on:
       - db
     volumes:
-      - ./app:/srv/app:rw,cached
+      - .:/srv/app:rw,cached
       - ./public:/public:rw,cached
-    command: [ "bun", "run", "start" ]
     env_file:
       - .env
 

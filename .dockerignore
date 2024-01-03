@@ -1,0 +1,7 @@
+node_modules
+dist
+mysql
+npm-debug.log
+public
+.dockerignore
+Dockerfile

@@ -26,12 +26,10 @@ export default {
       // Ensure name directory exists
       fs.mkdirSync(namePath, { recursive: true });
 
-      console.log(namePath);
-
       cb(null, namePath);
     },
     filename: (req, file, callback) => {
-      callback(null, `${nanoid()}${extname(file.originalname)}`);
+      callback(null, `${nanoid}${extname(file.originalname)}`);
     },
   }),
 } as MulterOptions;
