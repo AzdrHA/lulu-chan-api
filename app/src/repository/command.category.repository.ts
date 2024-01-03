@@ -31,4 +31,11 @@ export class CommandCategoryRepository extends AbstractRepository<CommandCategor
       .setParameter('id', id)
       .getOne();
   };
+
+  public getAllCategoriesWithCommands = () => {
+    return this.repository
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.commands', 'command')
+      .getMany();
+  };
 }

@@ -3,12 +3,14 @@ import { CommandRepository } from '../repository/command.repository';
 import ApiException from '../exception/api.exception';
 import { CommandCategoryRepository } from '../repository/command.category.repository';
 import { CommandModel } from '../model/command.model';
+import { ImageRepository } from '../repository/image.repository';
 
 @Injectable()
 export default class CommandService {
   constructor(
     private readonly commandRepository: CommandRepository,
     private readonly commandCategoryRepository: CommandCategoryRepository,
+    private readonly imageRepository: ImageRepository,
   ) {}
 
   public create(data: CommandModel) {
@@ -26,6 +28,16 @@ export default class CommandService {
   public update(id: number, data: CommandModel): Promise<unknown> {
     return this.commandRepository.update(id, data);
   }
+
+  public getOneCommandImageByName = async (name: string) => {
+    const image = await this.imageRepository.getOneImageByCommandName(name);
+    if (!image) throw new ApiException('Image not found');
+
+    return {
+      image: image.path,
+      name: image.name,
+    };
+  };
 
   public async createOrUpdate(data: CommandModel, id?: number) {
     const command = await this.commandRepository.findCommandById(id);

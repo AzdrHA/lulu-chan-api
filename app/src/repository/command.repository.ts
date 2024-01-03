@@ -8,6 +8,7 @@ export class CommandRepository extends AbstractRepository<CommandModel> {
   public findCommandByName = (name: string) => {
     return this.repository
       .createQueryBuilder('command')
+      .leftJoinAndSelect('command.category', 'category')
       .where('command.name = :name')
       .setParameter('name', name)
       .getOne();

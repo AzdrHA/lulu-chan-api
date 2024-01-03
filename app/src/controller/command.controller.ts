@@ -66,4 +66,16 @@ export class CommandController
       args: [id],
     });
   }
+
+  @Get('/:name/image')
+  public getOneCommandImageByName(
+    @Res() response: Response,
+    @Param('name') name: string,
+  ) {
+    return this.handleRequest(response, {
+      service: this.commandService,
+      fn: 'getOneCommandImageByName',
+      args: [name],
+    });
+  }
 }

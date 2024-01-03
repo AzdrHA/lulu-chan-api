@@ -26,6 +26,10 @@ export default class CommandCategoryService {
     return this.commandCategoryRepository.update(id, data);
   }
 
+  public getAllCategoriesWithCommands(): Promise<unknown> {
+    return this.commandCategoryRepository.getAllCategoriesWithCommands();
+  }
+
   public async createOrUpdate(data: CommandCategoryModel, id?: number) {
     const category = await this.commandCategoryRepository.findCategoryById(id);
     if (id && !category) throw new ApiException('Category not found');

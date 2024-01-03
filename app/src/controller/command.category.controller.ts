@@ -67,4 +67,13 @@ export class CommandCategoryController
       args: [body, id],
     });
   }
+
+  @Get()
+  public getAllCategoriesWithCommands(@Res() response: Response) {
+    return this.handleRequest(response, {
+      service: this.commandCategoryService,
+      fn: 'getAllCategoriesWithCommands',
+      args: [],
+    });
+  }
 }

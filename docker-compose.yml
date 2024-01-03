@@ -8,7 +8,7 @@ services:
       - db
     volumes:
       - ./app:/srv/app:rw,cached
-      - ./public:/srv/app/public:rw,cached
+      - ./public:/public:rw,cached
     command: [ "bun", "run", "start" ]
     env_file:
       - .env
@@ -34,7 +34,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./app/public:/srv/app/public:ro
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./public:/public:r,cached
     depends_on:
       - app
