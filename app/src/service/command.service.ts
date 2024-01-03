@@ -4,6 +4,7 @@ import ApiException from '../exception/api.exception';
 import { CommandCategoryRepository } from '../repository/command.category.repository';
 import { CommandModel } from '../model/command.model';
 import { ImageRepository } from '../repository/image.repository';
+import * as process from "process";
 
 @Injectable()
 export default class CommandService {
@@ -34,7 +35,7 @@ export default class CommandService {
     if (!image) throw new ApiException('Image not found');
 
     return {
-      image: image.path,
+      image: process.env.CDN_URL + image.path,
       name: image.name,
     };
   };
