@@ -29,7 +29,7 @@ export default {
       cb(null, namePath);
     },
     filename: (req, file, callback) => {
-      callback(null, `${nanoid}${extname(file.originalname)}`);
+      callback(null, `${nanoid()}${extname(file.originalname)}`);
     },
   }),
 } as MulterOptions;

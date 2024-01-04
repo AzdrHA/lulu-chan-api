@@ -33,10 +33,6 @@ RUN npm install
 # Copy the rest of the application source
 COPY . .
 
-# Expose the port the app runs on
-ENV APP_PORT=3000
-EXPOSE ${APP_PORT}
-
 # Set the user to run the application
 USER node
 

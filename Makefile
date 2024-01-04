@@ -10,11 +10,11 @@ enter:
 	@docker compose exec app sh
 
 migration-generate:
-	@docker compose exec app bun run migration:generate
+	@docker compose exec app npm run migration:generate
 
 migration-run:
-	@docker compose exec app bun run migration:run
+	@docker compose exec app npm run migration:run
 
 lint:
-	@docker compose exec app bun run lint
-	@docker compose exec app bun run format
+	@docker compose exec app npm run lint
+	@docker compose exec app npm run format

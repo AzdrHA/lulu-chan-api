@@ -18,7 +18,7 @@ export default class ImageService {
     if (!command) throw new ApiException('Command not found', 404);
 
     for (const file of files) {
-      const image = await this.imageRepository.create();
+      const image = this.imageRepository.create();
       image.name = parse(file.filename).name;
       image.path = file.path.replace('public/', '');
       image.command = command;
