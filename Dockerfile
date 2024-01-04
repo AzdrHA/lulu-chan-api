@@ -41,4 +41,4 @@ EXPOSE ${APP_PORT}
 USER node
 
 # Define the command to run the app
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "start"]
