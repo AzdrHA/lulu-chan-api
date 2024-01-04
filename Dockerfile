@@ -3,7 +3,7 @@ ARG NODE_VERSION=20.10
 FROM node:${NODE_VERSION}-alpine AS node_api
 
 RUN mkdir -p /srv/app/node_modules && chown -R node:node /srv/app
-RUN mkdir -p /srv/app/dist && chown -R node:node /srv/app/dist
+RUN #mkdir -p /srv/app/dist && chown -R node:node /srv/app/dist
 
 # Set working directory
 WORKDIR /srv/app
@@ -40,5 +40,7 @@ EXPOSE ${APP_PORT}
 # Set the user to run the application
 USER node
 
+RUN npm run build
+
 # Define the command to run the app
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:prod"]
