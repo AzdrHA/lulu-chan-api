@@ -32,7 +32,7 @@ export default class ImageController extends AbstractController {
     return this.handleRequest(response, {
       service: this.imageService,
       fn: 'uploadImage',
-      args: [name, files],
+      args: [category, name, files],
     });
   }
 }

@@ -13,6 +13,7 @@ const config: MysqlConnectionOptions = {
   database: configService.get('MYSQL_DATABASE'),
   entities: ['dist/model/**/*{.js,.ts}'],
   migrations: ['dist/migrations/*{.js,.ts}'],
+  subscribers: ['dist/subscribers/*{.js,.ts}'],
 };
 
 export default new DataSource(config);

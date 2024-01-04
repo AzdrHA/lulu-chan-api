@@ -13,9 +13,15 @@ export default class ImageService {
     private readonly imageRepository: ImageRepository,
   ) {}
 
-  public uploadImage = async (name: string, files: Express.Multer.File[]) => {
+  public uploadImage = async (
+    category: string,
+    name: string,
+    files: Express.Multer.File[],
+  ) => {
     const command = await this.commandRepository.findCommandByName(name);
-    if (!command) throw new ApiException('Command not found', 404);
+    if (!command || command.category.slug !== category) {
+      throw new ApiException('Command not found', 404);
+    }
 
     for (const file of files) {
       const image = this.imageRepository.create();

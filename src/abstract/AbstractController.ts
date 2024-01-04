@@ -21,22 +21,23 @@ export default abstract class AbstractController {
       const result = await service[fn](...fnArgs);
       response.status(200).json(result);
     } catch (e) {
-      if (e instanceof ApiException)
+      if (e instanceof ApiException) {
         response.status(e.status).json({
           message: e.message,
           status: e.status,
         });
-      if (e instanceof EntityNotFoundError) {
+      } else if (e instanceof EntityNotFoundError) {
         response.status(404).json({
           message: 'entity not found',
           status: 404,
         });
+      } else {
+        response.status(500).json({
+          message: 'Une erreur est survenue',
+          status: 500,
+          error: e.message,
+        });
       }
-      response.status(500).json({
-        message: 'Une erreur est survenue',
-        status: 500,
-        error: e.message,
-      });
     }
   }
 }

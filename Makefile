@@ -15,6 +15,9 @@ migration-generate:
 migration-run:
 	@docker compose exec app npm run migration:run
 
+migration-revert:
+	@docker compose exec app npm run migration:revert
+
 lint:
 	@docker compose exec app npm run lint
 	@docker compose exec app npm run format

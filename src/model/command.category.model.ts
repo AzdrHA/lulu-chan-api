@@ -20,6 +20,9 @@ export class CommandCategoryModel {
   @IsString({ message: 'Name must be a string', groups: ['create', 'update'] })
   public name: string;
 
+  @Column()
+  public slug: string;
+
   @Column({ default: false, type: 'boolean' })
   @IsOptional({ groups: ['create', 'update'] })
   @IsBoolean({
