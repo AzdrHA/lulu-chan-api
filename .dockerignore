@@ -4,4 +4,12 @@ mysql
 npm-debug.log
 public
 .dockerignore
-Dockerfile
+.git
+*Dockerfile*
+*docker-compose*
+public/**/*
+docker
+coverage
+./*.sh
+.*
+src
