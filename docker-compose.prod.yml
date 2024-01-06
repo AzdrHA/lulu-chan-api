@@ -36,6 +36,7 @@ services:
       - ./docker/nginx/nginx-prod.conf:/etc/nginx/nginx.conf
       - ./public:/public:r,cached
       - ./docker/nginx/ssl:/etc/nginx/ssl
+      - ./docker/nginx/index.html:/usr/share/nginx/html/index.html
     depends_on:
       - app
 
