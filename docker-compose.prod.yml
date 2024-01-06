@@ -34,6 +34,7 @@ services:
     volumes:
       - ./docker/nginx/nginx-prod.conf:/etc/nginx/nginx.conf
       - ./public:/public:r,cached
+      - ./docker/nginx/ssl:/etc/nginx/ssl
     depends_on:
       - app
 
