@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 const configService = new ConfigService();
 (async () => {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('/api');
+  // app.setGlobalPrefix('/api');
   app.enableCors();
   await app.listen(configService.get('APP_PORT'));
 })();
