@@ -16,17 +16,19 @@ export default {
   },
   storage: diskStorage({
     destination: async (req, file, cb) => {
-      const { category, name } = req.params;
-      const categoryPath = path.join('/public', category);
-      const namePath = path.join(categoryPath, name);
+      const firstFolder = path.join(
+        '/public',
+        Math.random().toString(36).substr(2, 2),
+      );
+      const secondFolder = path.join(
+        firstFolder,
+        Math.random().toString(36).substr(2, 2),
+      );
 
-      // Ensure category directory exists
-      fs.mkdirSync(categoryPath, { recursive: true });
+      fs.mkdirSync(firstFolder, { recursive: true });
+      fs.mkdirSync(secondFolder, { recursive: true });
 
-      // Ensure name directory exists
-      fs.mkdirSync(namePath, { recursive: true });
-
-      cb(null, namePath);
+      cb(null, secondFolder);
     },
     filename: (req, file, callback) => {
       callback(null, `${nanoid()}${extname(file.originalname)}`);

@@ -36,6 +36,7 @@ export class CommandCategoryRepository extends AbstractRepository<CommandCategor
     return this.repository
       .createQueryBuilder('category')
       .leftJoinAndSelect('category.commands', 'command')
+      .orderBy('category.id', 'DESC')
       .getMany();
   };
 }
