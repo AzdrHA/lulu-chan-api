@@ -31,6 +31,7 @@ services:
       context: ./docker/nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./docker/nginx/nginx-prod.conf:/etc/nginx/nginx.conf
       - ./public:/public:r,cached
