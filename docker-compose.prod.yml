@@ -37,6 +37,7 @@ services:
       - ./public:/public:r,cached
       - ./docker/nginx/ssl:/etc/nginx/ssl
       - ./docker/nginx/index.html:/usr/share/nginx/html/index.html
+      - ./docker/nginx/privacy-policy.html:/usr/share/nginx/html/privacy-policy.html
     depends_on:
       - app
 
