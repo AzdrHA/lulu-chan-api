@@ -9,7 +9,7 @@ services:
       - .env
     volumes:
       - ./src:/srv/app/src:r
-      - ./public:/public:r,cached
+      - ./public:/public:rw,cached
 
   db:
     build:
